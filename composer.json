@@ -1,8 +1,7 @@
 {
-    "name": "idawnlight/scf-qcloud-lets-encrypt",
+    "name": "idawnlight/qcloud-lets-encrypt",
     "description": "a tool to use Let's Encrypt on Tencent Cloud",
     "require": {
-        "tencentyun-api/qcloudapi-sdk-php": "^2.0.9",
-        "tencentcloud/tencentcloud-sdk-php": "^3.0"
+        "tencentyun-api/qcloudapi-sdk-php": "^2.0.9"
     }
 }
