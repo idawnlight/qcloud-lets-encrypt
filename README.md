@@ -4,8 +4,9 @@
 
 # 用法
 
-1. 将 `config.example.php` 复制为 `config.php`，根据提示完成相关配置
-2. 以 [acme.sh](https://github.com/Neilpang/acme.sh) 为例，在 `~/.acme.sh/[main domain]/[main domain].conf` 中配置 `Le_RenewHook` 字段，以下为示例
+1. `composer install`
+2. 将 `config.example.php` 复制为 `config.php`，根据提示完成相关配置
+3. 以 [acme.sh](https://github.com/Neilpang/acme.sh) 为例，在 `~/.acme.sh/[main domain]/[main domain].conf` 中配置 `Le_RenewHook` 字段，以下为示例
 
 ```bash
 ~/.acme.sh/acme.sh\
