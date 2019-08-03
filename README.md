@@ -14,8 +14,8 @@
  -d [main domain]\
  --fullchain-file /tmp/cert.cer\
  --key-file /tmp/cert.key\
-&& php /some/path/index.php
- --cert /tmp/cert.cer
- --key /tmp/cert.key
+&& php /some/path/index.php\
+ --cert /tmp/cert.cer\
+ --key /tmp/cert.key\
 && rm -f /tmp/cert.cer /tmp/cert.key
 ```
