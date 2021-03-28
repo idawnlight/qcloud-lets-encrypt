@@ -2,19 +2,24 @@
 $time_start = microtime(true);
 
 require_once('vendor/autoload.php');
-require_once('lib.php');
 
 try {
-    $options = getopt('c:k:', ['cert:', 'key:']);
+    $options = getopt('c:k:', ['cert:', 'key:', 'conf:']);
     $cert = $options['c'] ?? $options['cert'] ?? null;
     $key = $options['k'] ?? $options['key'] ?? null;
+    $conf = $options['conf'] ?? 'config.php';
     if (($cert ?? $key ?? null) === null) {
         echo <<<USAGE
 Usage:
 -c, --cert          full chain cert
 -k, --key           cert key
+--conf              config to use (default: config.php)
 USAGE;
+        exit;
     }
+
+    require_once('lib.php');
+
     $cert = file_get_contents($cert);
     $key = file_get_contents($key);
     

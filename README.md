@@ -9,13 +9,14 @@
 3. 以 [acme.sh](https://github.com/Neilpang/acme.sh) 为例，在 `~/.acme.sh/[main domain]/[main domain].conf` 中配置 `Le_RenewHook` 字段，以下为示例
 
 ```bash
-~/.acme.sh/acme.sh\
- --install-cert\
- -d [main domain]\
- --fullchain-file /tmp/cert.cer\
- --key-file /tmp/cert.key\
-&& php /some/path/index.php\
- --cert /tmp/cert.cer\
- --key /tmp/cert.key\
+~/.acme.sh/acme.sh \
+ --install-cert \
+ -d [main domain] \
+ --fullchain-file /tmp/cert.cer \
+ --key-file /tmp/cert.key \
+&& php /some/path/index.php \
+ --cert /tmp/cert.cer \
+ --key /tmp/cert.key \
+ --conf configname.php \
 && rm -f /tmp/cert.cer /tmp/cert.key
 ```

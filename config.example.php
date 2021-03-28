@@ -13,10 +13,10 @@ return [
     'CDN' => [
         'enable' => false,
         // Auto deploy for Tencent Cloud CDN (China Mainland)
-        // Only 'running' cdns will be updated
+        // Only 'running' cdn instances will be updated
         'domains' => [
             // Only sub1.another-example.com and sub2.another-example-2.com will be updated
-            // See https://cloud.tencent.com/document/api/228/12965 for parameters, it's optional
+            // Refer to https://cloud.tencent.com/document/api/228/12965 for parameters, which are optional
             'sub1.another-example.com' => [
                 'httpsType' => 4, // ONLY 3 or 4
                 'forceSwitch' => 3,

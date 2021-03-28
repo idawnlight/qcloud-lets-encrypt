@@ -1,6 +1,5 @@
 <?php
-global $config;
-$config = require('config.php');
+$config = require($conf);
 
 set_error_handler(
     function ($severity, $message, $file, $line) {
