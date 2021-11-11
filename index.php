@@ -4,7 +4,7 @@ $time_start = microtime(true);
 require_once('vendor/autoload.php');
 
 try {
-    $options = getopt('c:k:', ['cert:', 'key:', 'conf:']);
+    $options = getopt('c:k:', ['cert:', 'key:', 'certId:', 'conf:']);
     $cert = $options['c'] ?? $options['cert'] ?? null;
     $key = $options['k'] ?? $options['key'] ?? null;
     $certId = $options['certId'] ?? null;
@@ -14,7 +14,7 @@ try {
 Usage:
 -c, --cert          full chain cert
 -k, --key           cert key
---certId            certId on TencentCloud, will skip to deployment
+--certId            certId on Tencent Cloud, will skip to deployment
 --conf              config to use (default: config.php)
 USAGE;
         exit;
