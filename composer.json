@@ -3,6 +3,6 @@
     "description": "a tool to use Let's Encrypt on Tencent Cloud",
     "type": "project",
     "require": {
-        "tencentyun-api/qcloudapi-sdk-php": "^2.0.9"
+        "tencentcloud/tencentcloud-sdk-php": "^3.0"
     }
 }

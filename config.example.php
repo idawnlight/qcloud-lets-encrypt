@@ -2,13 +2,11 @@
 
 return [
     // Tencent Cloud API Config
-    // CAM currently do not support SSL management, so we can only use the main account
-    // For some reason, we can only use API v2
     'Tencent' => [
         'SecretId'       => 'AK********************', // API Secret ID
         'SecretKey'      => 'c2**********************', // API Secret Key
-        'RequestMethod'  => 'POST', // Keep it
-        'DefaultRegion'  => 'gz' // Keep it
+        // 'RequestMethod'  => 'POST', // Deprecated
+        // 'DefaultRegion'  => 'ap-shanghai' // Seems useless
     ],
     'CDN' => [
         'enable' => false,

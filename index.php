@@ -20,6 +20,8 @@ USAGE;
 
     require_once('lib.php');
 
+    init();
+
     $cert = file_get_contents($cert);
     $key = file_get_contents($key);
     
