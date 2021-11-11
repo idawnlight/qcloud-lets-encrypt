@@ -7,12 +7,14 @@ try {
     $options = getopt('c:k:', ['cert:', 'key:', 'conf:']);
     $cert = $options['c'] ?? $options['cert'] ?? null;
     $key = $options['k'] ?? $options['key'] ?? null;
+    $certId = $options['certId'] ?? null;
     $conf = $options['conf'] ?? 'config.php';
     if (($cert ?? $key ?? null) === null) {
         echo <<<USAGE
 Usage:
 -c, --cert          full chain cert
 -k, --key           cert key
+--certId            certId on TencentCloud, will skip to deployment
 --conf              config to use (default: config.php)
 USAGE;
         exit;
@@ -22,12 +24,16 @@ USAGE;
 
     init();
 
-    $cert = file_get_contents($cert);
-    $key = file_get_contents($key);
-    
-    $certId = uploadCert($cert, $key);
+    if ($certId === null) {
+        $cert = file_get_contents($cert);
+        $key = file_get_contents($key);
 
-    echo "New cert " . $certId . ".\n";
+        $certId = uploadCert($cert, $key);
+
+        echo "New cert " . $certId . ".\n";
+    } else {
+        echo "Existing cert " . $certId . ".\n";
+    }
 
     if ($config['CDN']['enable']) {
         foreach ($config['CDN']['domains'] as $domain => $parameters) {
