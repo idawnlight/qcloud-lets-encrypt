@@ -9,7 +9,7 @@ try {
     $key = $options['k'] ?? $options['key'] ?? null;
     $certId = $options['certId'] ?? null;
     $conf = $options['conf'] ?? 'config.php';
-    if (($cert ?? $key ?? null) === null) {
+    if (($cert ?? $key ?? null) ?? $certId === null) {
         echo <<<USAGE
 Usage:
 -c, --cert          full chain cert
