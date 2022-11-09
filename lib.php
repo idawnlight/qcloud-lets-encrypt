@@ -6,7 +6,6 @@ use TencentCloud\Cdn\V20180606\Models\DomainFilter;
 use TencentCloud\Cdn\V20180606\Models\ServerCert;
 use TencentCloud\Cdn\V20180606\Models\UpdateDomainConfigRequest;
 use TencentCloud\Common\Credential;
-use TencentCloud\Common\Exception\TencentCloudSDKException;
 use TencentCloud\Ssl\V20191205\Models\UploadCertificateRequest;
 use TencentCloud\Ssl\V20191205\SslClient;
 
@@ -38,7 +37,7 @@ function uploadCert(string $cert, string $key) {
     }
 }
 
-function depolyToCDN(string $domain, string $certId, array $parameters) {
+function deployToCDN(string $domain, string $certId, array $parameters) {
     global $config;
     try {
         $client = new CdnClient($config['cred'], 'ap-shanghai');

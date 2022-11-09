@@ -37,7 +37,7 @@ USAGE;
 
     if ($config['CDN']['enable']) {
         foreach ($config['CDN']['domains'] as $domain => $parameters) {
-            depolyToCDN($domain, $certId, $parameters);
+            deployToCDN($domain, $certId, $parameters);
         }
     }
 
