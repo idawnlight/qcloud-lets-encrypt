@@ -7,6 +7,7 @@ use TencentCloud\Cdn\V20180606\Models\ServerCert;
 use TencentCloud\Cdn\V20180606\Models\UpdateDomainConfigRequest;
 use TencentCloud\Common\Credential;
 use TencentCloud\Ssl\V20191205\Models\UploadCertificateRequest;
+use TencentCloud\Ssl\V20191205\Models\ModifyCertificatesExpiringNotificationSwitchRequest;
 use TencentCloud\Ssl\V20191205\SslClient;
 
 $config = require($conf);
@@ -48,6 +49,10 @@ function deployToCDN(string $domain, string $certId, array $parameters) {
         $query_req->Filters = [$filter];
         $query_resp = $client->DescribeDomainsConfig($query_req)->Domains[0];
 
+        if ($query_resp->Https->CertInfo && $query_resp->Https->CertInfo->CertId && ($parameters['disableExpireNotification'] ?? false)) {
+            disableExpireNotification($query_resp->Https->CertInfo->CertId);
+        }
+
         $req = new UpdateDomainConfigRequest();
         $req->Domain = $query_resp->Domain;
         $req->Https = $query_resp->Https;
@@ -56,6 +61,19 @@ function deployToCDN(string $domain, string $certId, array $parameters) {
         $req->Https->CertInfo = $cert;
         $req->Https->ClientCertInfo = null;
         return $client->UpdateDomainConfig($req);
+    } catch (Exception $e) {
+        throw $e;
+    }
+}
+
+function disableExpireNotification(string $certId) {
+    global $config;
+    try {
+        $client = new SslClient($config['cred'], 'ap-shanghai');
+        $req = new ModifyCertificatesExpiringNotificationSwitchRequest();
+        $req->CertificateIds = [$certId];
+        $req->SwitchStatus = 1;
+        return $client->ModifyCertificatesExpiringNotificationSwitch($req);
     } catch (Exception $e) {
         throw $e;
     }
