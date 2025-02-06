@@ -14,7 +14,7 @@ try {
 Usage:
 -c, --cert          full chain cert
 -k, --key           cert key
---certId            certId on Tencent Cloud, will skip to deployment
+--certId            certId on Tencent Cloud / DogeCloud, will skip to deployment
 --conf              config to use (default: config.php)
 USAGE;
         exit;
@@ -22,22 +22,53 @@ USAGE;
 
     require_once('lib.php');
 
-    init();
+    // run if the 'enable' key is not set or set to true
+    if ($config['Tencent']['enable'] ?? true) {
+        echo "Using Tencent Cloud.\n";
 
-    if ($certId === null) {
-        $cert = file_get_contents($cert);
-        $key = file_get_contents($key);
+        init();
 
-        $certId = uploadCert($cert, $key);
+        if ($certId === null) {
+            $cert = file_get_contents($cert);
+            $key = file_get_contents($key);
+    
+            $certId = uploadCert($cert, $key);
+    
+            echo "New cert " . $certId . ".\n";
+        } else {
+            echo "Existing cert " . $certId . ".\n";
+        }
+    
+        if ($config['CDN']['enable']) {
+            foreach ($config['CDN']['domains'] as $domain => $parameters) {
+                deployToCDN($domain, $certId, $parameters);
+            }
+        }
+    } else if ($config['dogecloud']['enable'] ?? true) {
+        echo "Using DogeCloud.\n";
 
-        echo "New cert " . $certId . ".\n";
-    } else {
-        echo "Existing cert " . $certId . ".\n";
-    }
+        $dogecloud = new DogeCloud($config['dogecloud']['credentials']['accessKey'], $config['dogecloud']['credentials']['secretKey']);
 
-    if ($config['CDN']['enable']) {
-        foreach ($config['CDN']['domains'] as $domain => $parameters) {
-            deployToCDN($domain, $certId, $parameters);
+        if ($certId === null) {
+            $cert = file_get_contents($cert);
+            $key = file_get_contents($key);
+    
+            $certId = $dogecloud->uploadCert($cert, $key);
+            if ($certId === null) {
+                throw new Exception("Failed to upload cert.");
+            }
+    
+            echo "New cert " . $certId . ".\n";
+        } else {
+            echo "Existing cert " . $certId . ".\n";
+        }
+
+        if ($config['dogecloud']['cdn']['domains'] ?? null) {
+            foreach ($config['dogecloud']['cdn']['domains'] as $domain) {
+                if (!$dogecloud->deployToCDN($domain, $certId)) {
+                    throw new Exception("Failed to deploy to CDN.");
+                }
+            }
         }
     }
 

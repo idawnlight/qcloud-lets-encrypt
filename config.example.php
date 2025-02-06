@@ -3,6 +3,7 @@
 return [
     // Tencent Cloud API Credential
     'Tencent' => [
+        'enable' => false,
         'SecretId'       => 'AK********************', // API Secret ID
         'SecretKey'      => 'c2**********************', // API Secret Key
     ],
@@ -18,6 +19,17 @@ return [
                 'disableExpireNotification' => false
             ],
             'sub2.another-example-2.com' => [] // All parameters are optional
+        ]
+    ],
+    // DogeCloud API Credential & Configuration
+    'dogecloud' => [
+        'enable' => true,
+        'credentials' => [
+            'accessKey' => 'a*********',
+            'secretKey' => '7*******************'
+        ],
+        'cdn' => [
+            'domains' => ['example.com'],
         ]
     ]
 ];
